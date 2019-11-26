@@ -11,6 +11,11 @@
 cnpm i concurrently -D
 ~~~
 
+~~~
+cnpm install axios
+cnpm install vuex
+~~~
+
 
 
 
