@@ -3,8 +3,8 @@
     <div class="container">
       <div class="row">
         <div class="col-md-8 m-auto">
-          <h1 class="display-4 text-center">登录</h1>
-          <p class="lead text-center">用正确的账号登录</p>
+          <h1 class="display-4 text-center">Login</h1>
+          <p class="lead text-center">Use Your Correct Account Login</p>
           <form @submit.prevent="submit" autocomplete="off" method="post">
             <div class="form-group">
               <input
@@ -39,12 +39,21 @@ export default {
       user: {
         email: "",
         password: ""
-      }
+      },
+      errors: {}
     };
   },
   methods: {
     submit() {
-      console.log(this.user.email);
+      // console.log(this.user.email);
+      this.$axios
+        .post("/api/users/login", this.user)
+        .then(res => {
+          console.log(res.data);
+        })
+        .catch(err => {
+          console.log(err.response.data);
+        });
     }
   }
 };

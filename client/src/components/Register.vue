@@ -80,11 +80,20 @@ export default {
   methods: {
     submit() {
       // console.log(this.newUser);
+      // console.log(this.$store.getters.isAuthenticated);// 获取到getters中的授权
       //拿到页面上所有的注册信息 通过axios请求到后台
       this.$axios
         .post("/api/users/register", this.newUser)
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
+          //当我请求成功的时候执行mutations 操作的分发
+          //执行操作到mutation中
+          // this.$store.commit("setUser", res.data);
+          //执行action异步中操作
+          //执行actions中的分发操作setUser,并且带上注册的值
+          this.$store.dispatch("setUser", res.data);
+          //页面跳转到成功的地址
+          this.$router.push("/login");
         })
         .catch(err => {
           if (errors.response.data) {
