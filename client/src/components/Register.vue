@@ -87,8 +87,9 @@ export default {
         .then(res => {
           // console.log(res.data);
           //当我请求成功的时候执行mutations 操作的分发
-          //执行操作到mutation中
+          //执行操作到mutation中，执行mutaitons中的setUser方法 然后将res.data的前端传递过去
           // this.$store.commit("setUser", res.data);
+
           //执行action异步中操作
           //执行actions中的分发操作setUser,并且带上注册的值
           this.$store.dispatch("setUser", res.data);

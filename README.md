@@ -7,16 +7,20 @@
 
 前后端连载：只需要启动一次
 
-~~~
+~~~js
 cnpm i concurrently -D
 ~~~
 
-~~~
+需要的对应的模块请求模块 存储模块
+
+~~~js
 cnpm install axios
 cnpm install vuex
 ~~~
 
+解析token模块
 
-
-
+~~~js
+npm install jwt-decode
+~~~
 

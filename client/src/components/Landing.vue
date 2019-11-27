@@ -7,8 +7,8 @@
             <h1 class="display-3 mb-4">Alvis</h1>
             <p class="lead">welcome here</p>
             <hr />
-            <router-link to="/register" class="btn btn-lg btn-info mr-2">注册</router-link>
-            <router-link to="/login" class="btn btn-lg btn-light">登录</router-link>
+            <router-link v-show="!isLogin" to="/register" class="btn btn-lg btn-info mr-2">注册</router-link>
+            <router-link v-show="!isLogin" to="/login" class="btn btn-lg btn-light">登录</router-link>
           </div>
         </div>
       </div>
@@ -21,6 +21,16 @@ export default {
   name: "Landing",
   data() {
     return {};
+  },
+  computed: {
+    //计算属性 islogin函数 如果store中认证是true那就返回true 否则相反
+    isLogin() {
+      if (this.$store.getters.isAuthenticated) {
+        return true;
+      } else {
+        return false;
+      }
+    }
   }
 };
 </script>

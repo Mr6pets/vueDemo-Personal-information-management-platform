@@ -14,11 +14,20 @@
         </ul>
 
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
+          <li class="nav-item" v-show="isLogin">
+            <router-link class="nav-link" to="/dashboard">仪表盘</router-link>
+          </li>
+          <li class="nav-item" v-show="!isLogin">
             <router-link class="nav-link" to="/register">注册</router-link>
           </li>
-          <li class="nav-item">
+          <li class="nav-item" v-show="!isLogin">
             <router-link class="nav-link" to="/login">登录</router-link>
+          </li>
+          <li class="nav-item" v-show="isLogin">
+            <a @click.prevent="logout" class="nav-link">
+              <img :src="user.avatar" :alt="user.name" class="rounded-circle avatar-img" />
+              退出
+            </a>
           </li>
         </ul>
       </div>
@@ -31,9 +40,40 @@ export default {
   name: "NavBar",
   data() {
     return {};
+  },
+  computed: {
+    //计算属性 islogin函数 如果store中认证是true那就返回true 否则相反
+    isLogin() {
+      if (this.$store.getters.isAuthenticated) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    //获取store中user的信息
+    user() {
+      return this.$store.getters.user;
+    }
+  },
+  methods: {
+    //点击退出按钮，需要做的事情是 删除本地的token 去除请求头 清空登录的用户信息
+    logout() {
+      //删除localstorage token
+      localStorage.removeItem("jwtToken");
+      //清除请求头
+      this.$store.dispatch("setIsAuthenticated", false);
+      //清空登录的用户信息
+      this.$store.dispatch("setUser", {});
+      //跳转登录
+      this.$router.push("/login");
+    }
   }
 };
 </script>
 
 <style scoped>
+.avatar-img {
+  width: 25px;
+  margin-right: 5px;
+}
 </style>
