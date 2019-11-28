@@ -6,28 +6,21 @@
           <h1 class="display-4 text-center">Login</h1>
           <p class="lead text-center">Use Your Correct Account Login</p>
           <form @submit.prevent="submit" autocomplete="off" method="post">
-            <div class="form-group">
-              <input
-                type="email"
-                class="form-control form-control-lg"
-                placeholder="Email Address"
-                name="email"
-                v-model="user.email"
-                :class="{'is-invalid':errors.email}"
-              />
-              <div v-if="errors.email" class="invalid-feedback">{{errors.email}}</div>
-            </div>
-            <div class="form-group">
-              <input
-                type="password"
-                class="form-control form-control-lg"
-                placeholder="Password"
-                name="password"
-                v-model="user.password"
-                :class="{'is-invalid':errors.password}"
-              />
-              <div v-if="errors.password" class="invalid-feedback">{{errors.password}}</div>
-            </div>
+            <!-- 组件化登录框邮箱部分 -->
+            <TextFieldGroup
+              type="email"
+              placeholder="Email Address"
+              name="email"
+              v-model="user.email"
+              :error="errors.email"
+            />
+            <TextFieldGroup
+              type="password"
+              placeholder="Password"
+              name="password"
+              v-model="user.password"
+              :errors="errors.password"
+            />
             <input type="submit" class="btn btn-info btn-block mt-4" />
           </form>
         </div>
@@ -38,6 +31,8 @@
 <script>
 //引入token解析模块
 import jwt_decode from "jwt-decode";
+//引入组件
+import TextFieldGroup from "./common/TextFiledGroup";
 export default {
   name: "Login",
   data() {
@@ -49,9 +44,12 @@ export default {
       errors: {}
     };
   },
+  components: {
+    TextFieldGroup
+  },
   methods: {
     submit() {
-      // console.log(this.user.email);
+      console.log(this.user);
       // 登录页面 点击开始请求登录的地址
       this.$axios
         .post("/api/users/login", this.user)
