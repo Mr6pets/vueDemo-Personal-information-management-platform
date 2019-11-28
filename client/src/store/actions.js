@@ -10,5 +10,20 @@ export const setUser = ({ commit }, data) => {
 }
 
 
+export const setProfile = ({ commit }, data) => {
+  commit('setProfile', data)
+}
+
+export const setLoading = ({ commit }, data) => {
+  commit('setLoading', data)
+}
+
+//点击退出按钮一次性清除所有的信息
+export const clearCurrentState = ({ commit }, data) => {
+  commit("setIsAuthenticated", false);
+  commit('setUser', null);
+  commit('setProfile', data)
+}
+
 
 

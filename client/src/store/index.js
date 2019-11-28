@@ -11,7 +11,9 @@ Vue.use(Vuex)
 //管理的状态
 const state = {
   isAuthenticated: false,//是否认证成功，是否可以请求我们的页面
-  user: {}//存储用户信息
+  user: {},//存储用户信息
+  profile: {},//存储用户个人信息
+  loading: false
 }
 
 export default new Vuex.Store({

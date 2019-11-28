@@ -5,6 +5,16 @@ export const setIsAuthenticated = (state, data) => {
 //用户状态的改变
 export const setUser = (state, data) => {
   state.user = data;
-  console.log(data)
+  // console.log(data)
+}
+
+//用户个人状态的改变
+export const setProfile = (state, data) => {
+  state.profile = data;
+  // console.log(data)
+}
+
+export const setLoading = (state, data) => {
+  state.loading = data;
 }
 

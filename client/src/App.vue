@@ -5,6 +5,7 @@
       <router-view></router-view>
     </keep-alive>
     <Footer></Footer>
+    <Loading v-show="loading" />
   </div>
 </template>
 
@@ -12,6 +13,7 @@
 import NavBar from "./components/NavBar";
 import Landing from "./components/Landing";
 import Footer from "./components/Footer";
+import Loading from "./components/common/Loading";
 //引入token解析模块
 import jwt_decode from "jwt-decode";
 export default {
@@ -19,7 +21,13 @@ export default {
   components: {
     NavBar,
     Landing,
-    Footer
+    Footer,
+    Loading
+  },
+  computed: {
+    loading() {
+      return this.$store.getters.loading;
+    }
   },
   //当登录成功的时候，页面刷新后 store中的状态就变回原来的状态了
   //所以要在每次刷新页面的时候，执行一个created的钩子函数判断本地有没有点击登录时候存储下的token
@@ -35,8 +43,12 @@ export default {
       //例子：3点登陆 过期时间1个小时 就是4点过期 那么现在的时间是5点  当前时间大于过期时间 表示过期了
       if (decoded.exp < currentTime) {
         //如果过期了 那就清除请求头 清空登录信息 并且跳转登录页面
-        this.$store.dispatch("setIsAuthenticated", false);
-        this.$store.dispatch("setUser", {});
+        // this.$store.dispatch("setIsAuthenticated", false);
+        // this.$store.dispatch("setUser", {});
+
+        //点击退出按钮一次性清除所有的信息
+        this.$store.dispatch("clearCurrentState");
+
         this.$router.push("/login");
       } else {
         this.$store.dispatch("setIsAuthenticated", !this.isEmpty(decoded));
