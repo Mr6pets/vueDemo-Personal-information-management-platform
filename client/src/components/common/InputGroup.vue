@@ -8,6 +8,7 @@
     <input
       :placeholder="placeholder"
       class="form-control form-control-lg"
+      :value="value"
       :name="name"
       :class="{'is-invalid':errors}"
       @input="$emit('input',$event.target.value)"
@@ -24,6 +25,7 @@ export default {
       default: "text"
     },
     placeholder: String,
+    value: String,
     name: String,
     errors: String,
     icon: String

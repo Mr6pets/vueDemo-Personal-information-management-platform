@@ -5,6 +5,9 @@ import Login from '../components/Login'
 import Register from '../components/Register'
 import Dashboard from '../components/Dashboard'
 import CreateProfile from '../components/CreateProfile'
+import Editprofile from '../components/Editprofile'
+import AddExperience from '../components/AddExperience'
+import AddEducation from '../components/AddEducation'
 //实例化router
 Vue.use(VueRouter)
 
@@ -18,7 +21,10 @@ const route = new VueRouter({
     { path: "/login", component: Login },
     { path: "/register", component: Register },
     { path: "/dashboard", component: Dashboard },
-    { path: "/createprofile", component: CreateProfile }
+    { path: "/createprofile", component: CreateProfile },
+    { path: "/editprofile", component: Editprofile },
+    { path: "/addexperience", component: AddExperience },
+    { path: "/Addeducation", component: AddEducation }
   ]
 })
 //全局守卫

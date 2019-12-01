@@ -1,16 +1,15 @@
 <template>
-  <div class="create-profile">
+  <div class="edit-profile">
     <div class="container">
       <div class="row">
         <div class="col-md-8 m-auto">
           <a class="btn btn-light" @click.prevent="$router.go(-1)">返回</a>
-          <h1 class="display-4 text-center">创建个人资料</h1>
-          <p class="lead text-center">填写您的个人资料，让我们了解你</p>
+          <h1 class="display-4 text-center">编辑个人资料</h1>
           <small class="d-block pb-3">* 表示必填项</small>
           <form @submit.prevent="submit">
             <TextFieldGroup
               type="text"
-              placeholder=" pro handle"
+              placeholder=" profile handle"
               v-model="msgInfo.handle"
               name="handle"
               info="此处的handle是在后端接口中需要用来查询数据 通常写你email的名字"
@@ -127,7 +126,7 @@ import TextAreaGroup from "./common/TextAreaGroup";
 import SelectGroup from "./common/SelectGroup";
 import InputGroup from "./common/InputGroup";
 export default {
-  name: "createProfile",
+  name: "editProfile",
   data() {
     return {
       msgInfo: {
@@ -164,7 +163,38 @@ export default {
     SelectGroup,
     InputGroup
   },
+  beforeRouteEnter(to, from, next) {
+    //每次进入路由
+    next(vm => {
+      vm.getCurrentDate();
+    });
+  },
   methods: {
+    getCurrentDate() {
+      //取store中profile的数据
+      let profile = this.$store.getters.profile;
+      console.log(profile);
+      profile.company = profile.company ? profile.company : "";
+      profile.website = profile.website ? profile.website : "";
+      profile.location = profile.location ? profile.company : "";
+      profile.githubusername = profile.githubusername
+        ? profile.githubusername
+        : "";
+      profile.bio = profile.bio ? profile.bio : "";
+
+      profile.social = profile.social ? profile.social : {};
+      profile.wechat = profile.social.wechat ? profile.social.wechat : "";
+      profile.QQ = profile.social.QQ ? profile.social.QQ : "";
+      profile.tengxunkt = profile.social.tengxunkt
+        ? profile.social.tengxunkt
+        : "";
+      profile.wangyikt = profile.social.wangyikt ? profile.social.wangyikt : "";
+
+      profile.skills = profile.skills.length ? profile.skills.join(",") : "";
+
+      this.msgInfo = profile;
+      console.log(this.msgInfo);
+    },
     submit() {
       this.$axios
         .post("/api/profile", this.msgInfo)

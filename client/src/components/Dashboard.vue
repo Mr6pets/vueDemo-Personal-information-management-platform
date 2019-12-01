@@ -5,7 +5,18 @@
         <div class="col-md-12">
           <h1 class="display-4">仪表盘</h1>
           <p v-if="user!=null" class="lead text-muted">welcome {{user.name}}</p>
-          <h4 v-if="profile!=null">显示数据:{{profile.location}}</h4>
+          <div v-if="profile!=null">
+            <!-- 编辑个人信息&添加个人经历&添加教育经历 -->
+            <ProfileActived></ProfileActived>
+            <!-- 个人履历 -->
+            <Experience :experience="profile.experience" @deleteExperience="deleteExp" />
+            <!-- 教育经历 -->
+            <Education :education="profile.education" @deleteEducation="deleteEdu" />
+            <!-- 删除账户按钮 -->
+            <div>
+              <button class="btn btn-danger" @click="deleteClick">删除当前账户</button>
+            </div>
+          </div>
           <div v-else>
             <p>目前还没有相关的数据，请添加个人信息</p>
             <router-link class="btn btn-lg btn-info" to="/createprofile">添加个人信息</router-link>
@@ -16,12 +27,22 @@
   </div>
 </template>
 <script>
+import ProfileActived from "./common/ProfileActived";
+import AddExperience from "./AddExperience";
+import Experience from "./common/Experience";
+import Education from "./common/Education";
 export default {
   name: "dashboard",
   data() {
     return {
       profile: []
     };
+  },
+  components: {
+    ProfileActived,
+    AddExperience,
+    Experience,
+    Education
   },
   computed: {
     user() {
@@ -33,7 +54,7 @@ export default {
       this.$axios
         .get("/api/profile")
         .then(res => {
-          console.log(res.data);
+          // console.log(res.data);
           //赋值
           // this.profile = res.data;
 
@@ -45,6 +66,37 @@ export default {
         .catch(err => {
           // console.log(err.response.data);
           this.$store.dispatch("setProfile", null);
+        });
+    },
+    deleteClick() {
+      this.$axios
+        .delete("/api/profile")
+        .then(res => {
+          this.profile = null;
+          this.$store.dispatch("clearCurrentState");
+          this.$router.push("/login");
+        })
+        .catch(err => console.log(err));
+    },
+    // 子组件传递过来的方法
+    deleteExp(id) {
+      this.$axios
+        .delete(`/api/profile/experience/${id}`)
+        .then(res => {
+          this.profile = res.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    deleteEdu(id) {
+      this.$axios
+        .delete(`/api/profile/education/${id}`)
+        .then(res => {
+          this.profile = res.data;
+        })
+        .catch(err => {
+          console.log(err);
         });
     }
   },

@@ -8,6 +8,7 @@
       class="form-control form-control-lg"
       :placeholder="placeholder"
       :name="name"
+      :value="value"
       :disabled="disabled"
       :class="{'is-invalid':errors}"
       @input="$emit('input',$event.target.value)"
@@ -26,9 +27,10 @@ export default {
     },
     placeholder: String,
     name: String,
+    value: String,
     errors: String,
     info: String,
-    disabled: String
+    disabled: Boolean
   },
   data() {
     return {};
