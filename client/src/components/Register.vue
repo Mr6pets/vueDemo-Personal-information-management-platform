@@ -82,6 +82,7 @@ export default {
           //执行action异步中操作
           //执行actions中的分发操作setUser,并且带上注册的值
           this.$store.dispatch("setUser", res.data);
+          this.errors = {};
           //页面跳转到成功的地址
           this.$router.push("/login");
         })

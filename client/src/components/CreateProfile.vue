@@ -166,6 +166,7 @@ export default {
       this.$axios
         .post("/api/profile", this.msgInfo)
         .then(res => {
+          this.errors = {};
           this.$store.dispatch("setProfile", res.data);
           this.$router.push("/dashboard");
         })

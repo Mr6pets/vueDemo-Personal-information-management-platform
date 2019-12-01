@@ -72,7 +72,7 @@ export default {
           //这里的思路是：写一个判断函数 拿到decoded的值有内容为true 没有内容为false的函数
           this.$store.dispatch("setIsAuthenticated", !this.isEmpty(decoded));
           this.$store.dispatch("setUser", decoded);
-
+          this.errors = {};
           // 页面跳转
           this.$router.push("/dashboard");
         })
