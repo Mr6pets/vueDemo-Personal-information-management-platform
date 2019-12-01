@@ -4,6 +4,7 @@ import Landing from '../components/Landing'
 import Login from '../components/Login'
 import Register from '../components/Register'
 import Dashboard from '../components/Dashboard'
+import CreateProfile from '../components/CreateProfile'
 //实例化router
 Vue.use(VueRouter)
 
@@ -16,7 +17,8 @@ const route = new VueRouter({
     { path: "/", component: Landing },
     { path: "/login", component: Login },
     { path: "/register", component: Register },
-    { path: "/dashboard", component: Dashboard }
+    { path: "/dashboard", component: Dashboard },
+    { path: "/createprofile", component: CreateProfile }
   ]
 })
 //全局守卫

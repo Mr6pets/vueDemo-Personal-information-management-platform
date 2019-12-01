@@ -12,7 +12,7 @@
               placeholder="Email Address"
               name="email"
               v-model="user.email"
-              :error="errors.email"
+              :errors="errors.email"
             />
             <TextFieldGroup
               type="password"
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     submit() {
-      console.log(this.user);
+      // console.log(this.user);
       // 登录页面 点击开始请求登录的地址
       this.$axios
         .post("/api/users/login", this.user)

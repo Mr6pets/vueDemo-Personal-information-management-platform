@@ -11,7 +11,10 @@ axios.interceptors.request.use(config => {
     config.headers.Authorization = localStorage.jwtToken;
   }
   return config;
-})
+}, error => {
+  return Promise.reject(error)
+}
+)
 
 //响应拦截，设置统一的header
 axios.interceptors.response.use(
@@ -22,6 +25,7 @@ axios.interceptors.response.use(
   },
   error => {
     store.dispatch("setLoading", false)
+    return Promise.reject(error)
   }
 )
 
