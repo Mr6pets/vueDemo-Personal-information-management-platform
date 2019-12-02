@@ -13,7 +13,8 @@ const state = {
   isAuthenticated: false,//是否认证成功，是否可以请求我们的页面
   user: {},//存储用户信息
   profile: {},//存储用户个人信息
-  loading: false
+  loading: false,
+  profiles: []//存储开发者数据
 }
 
 export default new Vuex.Store({

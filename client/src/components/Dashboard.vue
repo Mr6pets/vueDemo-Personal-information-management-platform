@@ -4,7 +4,11 @@
       <div class="row">
         <div class="col-md-12">
           <h1 class="display-4">仪表盘</h1>
-          <p v-if="user!=null" class="lead text-muted">welcome {{user.name}}</p>
+          <p v-if="user!=null" class="lead text-muted">
+            welcome
+            <router-link v-if="profile==null" to="profiles">{{user.name}}</router-link>
+            <router-link v-else :to="`/profile/${profile.handle}`">{{user.name}}</router-link>
+          </p>
           <div v-if="profile!=null">
             <!-- 编辑个人信息&添加个人经历&添加教育经历 -->
             <ProfileActived></ProfileActived>
