@@ -10,6 +10,7 @@ import AddExperience from '../components/AddExperience'
 import AddEducation from '../components/AddEducation'
 import Profiles from '../components/Profiles'
 import Profile from '../components/profile/Profile'
+import Post from '../components/post/Post'
 //实例化router
 Vue.use(VueRouter)
 
@@ -28,7 +29,8 @@ const route = new VueRouter({
     { path: "/addexperience", component: AddExperience },
     { path: "/addeducation", component: AddEducation },
     { path: "/profiles", component: Profiles },
-    { path: "/profile/:handle", component: Profile }
+    { path: "/profile/:handle", component: Profile },
+    { path: "/feed", component: Post }
   ]
 })
 //全局守卫
